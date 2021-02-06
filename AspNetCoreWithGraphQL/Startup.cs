@@ -1,4 +1,5 @@
 using AspNetCoreWithGraphQL.Data;
+using AspNetCoreWithGraphQL.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -22,6 +23,7 @@ namespace AspNetCoreWithGraphQL
             services.AddDbContext<AppDbContext>(options => {
                 options.UseSqlServer(_config.GetConnectionString("AspNetCoreWithGraphQLConnection"));
             });
+            services.AddScoped<ProductRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
