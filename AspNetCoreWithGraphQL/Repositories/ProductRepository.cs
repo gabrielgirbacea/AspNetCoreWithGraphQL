@@ -19,5 +19,10 @@ namespace AspNetCoreWithGraphQL.Repositories
         {
             return _context.Products.ToListAsync();
         }
+
+        public Task<Product> GetProduct(int id)
+        {
+            return _context.Products.SingleAsync(p => p.Id == id);
+        }
     }
 }
