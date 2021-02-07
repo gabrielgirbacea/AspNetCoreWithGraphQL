@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCoreWithGraphQL", "AspNetCoreWithGraphQL\AspNetCoreWithGraphQL.csproj", "{2D9075A3-BDEB-467B-83AD-615309777202}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCoreWithGraphQL", "AspNetCoreWithGraphQL\AspNetCoreWithGraphQL.csproj", "{2D9075A3-BDEB-467B-83AD-615309777202}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
