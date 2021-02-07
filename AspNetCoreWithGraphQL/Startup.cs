@@ -40,6 +40,7 @@ namespace AspNetCoreWithGraphQL
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(_config.GetConnectionString("AspNetCoreWithGraphQLConnection")));
             services.AddScoped<ProductRepository>();
+            services.AddScoped<ProductReviewRepository>();
 
             services.AddScoped<IDependencyResolver>(s => new FuncDependencyResolver(s.GetRequiredService));
             services.AddScoped<AppSchema>();
@@ -48,7 +49,8 @@ namespace AspNetCoreWithGraphQL
                 {
                     o.ExposeExceptions = true;
                 })
-                .AddGraphTypes(ServiceLifetime.Scoped);
+                .AddGraphTypes(ServiceLifetime.Scoped)
+                .AddDataLoader();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
