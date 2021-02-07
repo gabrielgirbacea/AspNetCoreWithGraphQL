@@ -1,6 +1,6 @@
 ﻿namespace AspNetCoreWithGraphQL.Data
 {
-    public enum ProductType
+    public enum ProductTypeEnum
     {
         Boots,
         ClimbingGear,
