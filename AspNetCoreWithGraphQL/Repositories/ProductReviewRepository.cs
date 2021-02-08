@@ -26,5 +26,12 @@ namespace AspNetCoreWithGraphQL.Repositories
             var reviews = await _context.ProductReviews.Where(pr => productIds.Contains(pr.ProductId)).ToListAsync();
             return reviews.ToLookup(r => r.ProductId);
         }
+
+        public async Task<ProductReview> AddReview(ProductReview review)
+        {
+            _context.ProductReviews.Add(review);
+            await _context.SaveChangesAsync();
+            return review;
+        }
     }
 }

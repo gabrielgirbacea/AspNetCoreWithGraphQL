@@ -8,6 +8,7 @@ namespace AspNetCoreWithGraphQL.GraphQL
         public AppSchema(IDependencyResolver resolver) : base(resolver)
         {
             Query = resolver.Resolve<AppQuery>();
+            Mutation = resolver.Resolve<AppMutation>();
         }
     }
 }
