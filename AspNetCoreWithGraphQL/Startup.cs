@@ -1,5 +1,6 @@
 using AspNetCoreWithGraphQL.Data;
 using AspNetCoreWithGraphQL.GraphQL;
+using AspNetCoreWithGraphQL.GraphQL.Messaging;
 using AspNetCoreWithGraphQL.Repositories;
 using GraphQL;
 using GraphQL.Server;
@@ -44,13 +45,15 @@ namespace AspNetCoreWithGraphQL
 
             services.AddScoped<IDependencyResolver>(s => new FuncDependencyResolver(s.GetRequiredService));
             services.AddScoped<AppSchema>();
+            services.AddSingleton<ReviewMessageService>();
 
             services.AddGraphQL(o =>
                 {
                     o.ExposeExceptions = true;
                 })
                 .AddGraphTypes(ServiceLifetime.Scoped)
-                .AddDataLoader();
+                .AddDataLoader()
+                .AddWebSockets();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,6 +61,8 @@ namespace AspNetCoreWithGraphQL
         {
             app.UseGraphQL<AppSchema>();
             app.UseGraphQLPlayground(new GraphQLPlaygroundOptions());
+            app.UseWebSockets();
+            app.UseGraphQLWebSockets<AppSchema>(".graphql");
             dbContext.Seed();
         }
     }

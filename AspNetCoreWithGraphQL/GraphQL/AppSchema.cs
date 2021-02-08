@@ -9,6 +9,7 @@ namespace AspNetCoreWithGraphQL.GraphQL
         {
             Query = resolver.Resolve<AppQuery>();
             Mutation = resolver.Resolve<AppMutation>();
+            Subscription = resolver.Resolve<AppSubscription>();
         }
     }
 }

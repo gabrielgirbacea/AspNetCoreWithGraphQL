@@ -1,4 +1,5 @@
 ﻿using AspNetCoreWithGraphQL.Data.Entities;
+using AspNetCoreWithGraphQL.GraphQL.Messaging;
 using AspNetCoreWithGraphQL.GraphQL.Types;
 using AspNetCoreWithGraphQL.Repositories;
 using GraphQL.Types;
@@ -12,7 +13,7 @@ namespace AspNetCoreWithGraphQL.GraphQL
 {
     public class AppMutation : ObjectGraphType
     {
-        public AppMutation(ProductReviewRepository reviewRepository)
+        public AppMutation(ProductReviewRepository reviewRepository, ReviewMessageService messageService)
         {
             FieldAsync<ProductReviewType>(
                 "createReview",
@@ -21,8 +22,9 @@ namespace AspNetCoreWithGraphQL.GraphQL
                 resolve: async context =>
                 {
                     var review = context.GetArgument<ProductReview>("review");
-                    return await context.TryAsyncResolve(
-                        async c => await reviewRepository.AddReview(review));
+                    await reviewRepository.AddReview(review);
+                    messageService.AddReviewAddedMessage(review);
+                    return review;
                 });
         }
     }

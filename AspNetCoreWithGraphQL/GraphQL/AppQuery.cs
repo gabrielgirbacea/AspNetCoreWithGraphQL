@@ -7,7 +7,7 @@ namespace AspNetCoreWithGraphQL.GraphQL
     public class AppQuery : ObjectGraphType
     {
 
-        public AppQuery(ProductRepository repository)
+        public AppQuery(ProductRepository repository, ProductReviewRepository reviewRepository)
         {
             Field<ListGraphType<ProductType>>(
                 "products",
@@ -24,6 +24,15 @@ namespace AspNetCoreWithGraphQL.GraphQL
                     return repository.GetProduct(id);
                 }
             );
+
+            Field<ListGraphType<ProductReviewType>>(
+               "reviews",
+               arguments: new QueryArguments(new QueryArgument<NonNullGraphType<IdGraphType>> { Name = "productId" }),
+               resolve: context =>
+               {
+                   var id = context.GetArgument<int>("productId");
+                   return reviewRepository.GetForProduct(id);
+               });
         }
 
     }
